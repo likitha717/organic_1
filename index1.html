@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GREEN INDIA ORGANICS</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f1;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #fff;
+            padding: 15px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .nav-item {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .nav-item i {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .home-page,
+        .sell-page,
+        .profile-page {
+            display: none;
+            padding: 20px;
+            padding-bottom: 100px;
+        }
+
+        .website-name {
+            text-align: center;
+            font-size: 32px;
+            font-weight: bold;
+            background-color: #2e7d32;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .category-slider {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px;
+            gap: 15px;
+        }
+
+        .category-item {
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .category-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .carousel {
+            overflow: hidden;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .carousel-track {
+            display: flex;
+            gap: 16px;
+            animation: scroll 20s linear infinite;
+        }
+
+        .carousel-track img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-name {
+            padding: 15px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #2e7d32;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            text-align: center;
+        }
+
+        .modal-content h2 {
+            margin-top: 0;
+        }
+
+        .modal-content img {
+            width: 100%;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .sell-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .sell-form input,
+        .sell-form textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .profile-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .profile-menu-item {
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .buy-button {
+            width: 100%;
+            padding: 15px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body onload="showHome()">
+
+    <!-- Navigation Bar -->
+    <div class="nav-bar">
+        <div class="nav-item" onclick="showHome()">
+            <i class="fas fa-home"></i>
+            <div>Home</div>
+        </div>
+        <div class="nav-item" onclick="showSearch()">
+            <i class="fas fa-search"></i>
+            <div>Search</div>
+        </div>
+        <div class="nav-item" onclick="showSell()">
+            <i class="fas fa-shopping-bag"></i>
+            <div>Sell</div>
+        </div>
+        <div class="nav-item" onclick="showProfile()">
+            <i class="fas fa-user"></i>
+            <div>Profile</div>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div class="home-page" id="homePage">
+        <h1 class="website-name">GREEN INDIA ORGANICS</h1>
+        <div style="text-align: center; margin: 20px 0;">
+            <input type="text" id="searchInput" oninput="handleSearch()" placeholder="🔍 Search for eco-products..."
+                style="padding: 12px 20px; width: 90%; max-width: 500px; border-radius: 25px; border: 1px solid #ccc; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 16px;">
+
+        </div>
+        <div class="category-slider">
+            <div class="category-item">
+                <img src="./images/paper bags.jpg" alt="Paper Bags" />
+                <div>Paper Bags</div>
+            </div>
+            <div class="category-item">
+                <img src="./images/bottel.webp" alt="Bamboo Bottles" />
+                <div>Bottles</div>
+            </div>
+            <div class="category-item">
+                <img src="./images/seeds.jpg" alt="Seeds" />
+                <div>Seeds</div>
+            </div>
+        </div>
+
+        <div class="carousel">
+            <div class="carousel-track">
+                <img src="./images/scrollin2.jpg" alt="Image 1" />
+                <img src="./images/scrolling3.jpg" alt="Image 2" />
+                <img src="./images/scrollin2.jpg" alt="Image 1" />
+                <img src="./images/scrolling3.jpg" alt="Image 2" />
+                <img src="./images/scrolling4.png" alt="Image 1" />
+                <img src="./images/scrolling4.png" alt="Image 2" />
+
+                <img src="./images/scrollin2.jpg" alt="Image 1 duplicate" />
+                <img src="./images/scrolling3.jpg" alt="Image 2 duplicate" />
+                <img src="./images/scrollin2.jpg" alt="Image 1 duplicate" />
+                <img src="./images/scrolling3.jpg" alt="Image 2 duplicate" />
+                <img src="./images/scrolling4.png" alt="Image 1 duplicate" />
+                <img src="./images/scrolling4.png" alt="Image 2 duplicate" />
+            </div>
+        </div>
+
+        <!-- Product Cards -->
+        <div style="display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap;">
+            <div class="card" data-name="Paper Bags" onclick="openModal()">
+                <img src="./images/paper bags.jpg" alt="Organic Turmeric" />
+                <div class="card-name">Paper Bags</div>
+            </div>
+            <div class="card" data-name="Bamboo Bottles" onclick="openModal2()">
+                <img src="./images/bottel.webp" alt="Organic Honey" />
+                <div class="card-name">Bamboo Bottles</div>
+            </div>
+            <div class="card" data-name="Seeds" onclick="openModal3()">
+                <img src="./images/seeds.jpg" alt="Neem Soap" />
+                <div class="card-name">Seeds</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sell Page -->
+    <div class="sell-page" id="sellPage">
+        <h2>Sell Your Product</h2>
+        <form class="sell-form">
+            <input type="file" accept="image/*" />
+            <input type="text" placeholder="Product Name" />
+            <input type="number" placeholder="Price" />
+            <textarea placeholder="Product Description"></textarea>
+            <button type="submit" class="buy-button">List Product</button>
+        </form>
+    </div>
+
+    <!-- Profile Page -->
+    <div class="profile-page" id="profilePage">
+        <div class="profile-header">
+            <img src="./images/user-icon.png" alt="Profile" class="profile-image" />
+            <h2>User Name</h2>
+        </div>
+        <div class="profile-menu">
+            <div class="profile-menu-item">My Orders</div>
+            <div class="profile-menu-item">My Products</div>
+            <div class="profile-menu-item">Chat Assistant</div>
+            <div class="profile-menu-item">Location Info</div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Paper Bag</h2>
+            <img src="./images/paper bags.jpg" alt="Turmeric">
+            <h2>₹49</h2>
+            <p>
+                Paper bags are eco-friendly alternatives to plastic, made from renewable resources like trees. They are
+                biodegradable, recyclable, and commonly used for packaging and shopping
+            </p>
+            <button class="buy-button">Buy Now</button>
+        </div>
+    </div>
+
+    <div class="modal" id="productModal2">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal2()">&times;</span>
+            <h2>Bamboo Bottles</h2>
+            <img src="./images/bottel.webp" alt="Organic Honey">
+            <h2>₹499</h2>
+            <p>
+                Bamboo bottles are sustainable, eco-friendly containers made using bamboo exteriors and often stainless
+                steel or glass interiors. They are reusable, biodegradable, and promote a plastic-free lifestyle.
+            </p>
+            <button class="buy-button">Buy Now</button>
+        </div>
+    </div>
+
+    <div class="modal" id="productModal3">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal3()">&times;</span>
+            <h2>Seeds</h2>
+            <img src="./images/seeds.jpg" alt="Neem Soap">
+            <h2>₹99</h2>
+            <p>
+                Seeds are the small, vital parts of a plant that contain the embryo and have the potential to grow into
+                a new plant. They play a crucial role in reproduction, agriculture, and maintaining biodiversity.
+            </p>
+            <button class="buy-button">Buy Now</button>
+        </div>
+    </div>
+
+    <script>
+        function handleSearch() {
+            const searchText = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll(".card");
+
+            cards.forEach(card => {
+                const name = card.getAttribute("data-name").toLowerCase();
+                if (name.includes(searchText)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+        function showSearch() {
+            showHome(); // Show the home page
+            const searchInput = document.getElementById("searchInput");
+
+            setTimeout(() => {
+                searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+                searchInput.focus(); // Focus the input
+            }, 100); // Wait a bit to ensure home page is shown
+        }
+
+        function showHome() {
+            document.getElementById("homePage").style.display = "block";
+            document.getElementById("sellPage").style.display = "none";
+            document.getElementById("profilePage").style.display = "none";
+        }
+
+        function showSell() {
+            document.getElementById("homePage").style.display = "none";
+            document.getElementById("sellPage").style.display = "block";
+            document.getElementById("profilePage").style.display = "none";
+        }
+
+        function showProfile() {
+            document.getElementById("homePage").style.display = "none";
+            document.getElementById("sellPage").style.display = "none";
+            document.getElementById("profilePage").style.display = "block";
+        }
+
+        function openModal() {
+            document.getElementById("productModal").style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("productModal").style.display = "none";
+        }
+
+        function openModal2() {
+            document.getElementById("productModal2").style.display = "flex";
+        }
+
+        function closeModal2() {
+            document.getElementById("productModal2").style.display = "none";
+        }
+
+        function openModal3() {
+            document.getElementById("productModal3").style.display = "flex";
+        }
+
+        function closeModal3() {
+            document.getElementById("productModal3").style.display = "none";
+        }
+    </script>
+</body>
+
+</html>
